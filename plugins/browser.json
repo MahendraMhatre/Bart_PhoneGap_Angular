@@ -1,0 +1,79 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-googlemaps": {
+            "PACKAGE_NAME": "create"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "create"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "create"
+        }
+    }
+}

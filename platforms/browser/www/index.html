@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html   ng-app="plunker">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; img-src * data: 'unsafe-inline'">  <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+    <link href="https://s3.amazonaws.com/codecademy-content/projects/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <style type="text/css">
+        #map {
+            height:200px;
+            width:200px;
+        }
+
+              body.slide-active {
+          overflow-x: hidden
+      }
+      /*first child of #page-content so it doesn't shift around*/
+      .no-margin-top {
+          margin-top: 0px!important
+      }
+      /*wrap the entire page content but not nav inside this div if not a fixed top, don't add any top padding */
+      #page-content {
+          position: relative;
+          padding-top: 70px;
+          left: 0;
+      }
+      #page-content.slide-active {
+          padding-top: 0
+      }
+      /* put toggle bars on the left :: not using button */
+      #slide-nav .navbar-toggle {
+          cursor: pointer;
+          position: relative;
+          line-height: 0;
+          float: left;
+          margin: 0;
+          width: 30px;
+          height: 40px;
+          padding: 10px 0 0 0;
+          border: 0;
+          background: transparent;
+      }
+      /* icon bar prettyup - optional */
+      #slide-nav .navbar-toggle > .icon-bar {
+          width: 100%;
+          display: block;
+          height: 3px;
+          margin: 5px 0 0 0;
+      }
+      #slide-nav .navbar-toggle.slide-active .icon-bar {
+          background: orange
+      }
+      .navbar-header {
+          position: relative
+      }
+      /* un fix the navbar when active so that all the menu items are accessible */
+      .navbar.navbar-fixed-top.slide-active {
+          position: relative
+      }
+      /* screw writing importants and shit, just stick it in max width since these classes are not shared between sizes */
+      @media (max-width:767px) {
+      	#slide-nav .container {
+      	    margin: 0;
+      	    padding: 0!important;
+      	}
+      	#slide-nav .navbar-header {
+      	    margin: 0 auto;
+      	    padding: 0 15px;
+      	}
+      	#slide-nav .navbar.slide-active {
+      	    position: absolute;
+      	    width: 80%;
+      	    top: -1px;
+      	    z-index: 1000;
+      	}
+      	#slide-nav #slidemenu {
+      	    background: #f7f7f7;
+      	    left: -100%;
+      	    width: 80%;
+      	    min-width: 0;
+      	    position: absolute;
+      	    padding-left: 0;
+      	    z-index: 2;
+      	    top: -8px;
+      	    margin: 0;
+      	}
+      	#slide-nav #slidemenu .navbar-nav {
+      	    min-width: 0;
+      	    width: 100%;
+      	    margin: 0;
+      	}
+      	#slide-nav #slidemenu .navbar-nav .dropdown-menu li a {
+      	    min-width: 0;
+      	    width: 80%;
+      	    white-space: normal;
+      	}
+      	#slide-nav {
+      	    border-top: 0
+      	}
+      	#slide-nav.navbar-inverse #slidemenu {
+      	    background: #333
+      	}
+      	/* this is behind the navigation but the navigation is not inside it so that the navigation is accessible and scrolls*/
+      	#slide-nav #navbar-height-col {
+      	    position: fixed;
+      	    top: 0;
+      	    height: 100%;
+      	    width: 80%;
+      	    left: -80%;
+      	    background: #eee;
+      	}
+      	#slide-nav.navbar-inverse #navbar-height-col {
+      	    background: #333;
+      	    z-index: 1;
+      	    border: 0;
+      	}
+      	#slide-nav .navbar-form {
+      	    width: 100%;
+      	    margin: 8px 0;
+      	    text-align: center;
+      	    overflow: hidden;
+      	    /*fast clearfixer*/
+      	}
+      	#slide-nav .navbar-form .form-control {
+      	    text-align: center
+      	}
+      	#slide-nav .navbar-form .btn {
+      	    width: 100%
+      	}
+      }
+      @media (min-width:768px) {
+      	#page-content {
+      	    left: 0!important
+      	}
+      	.navbar.navbar-fixed-top.slide-active {
+      	    position: fixed
+      	}
+      	.navbar-header {
+      	    left: 0!important
+      	}
+      }
+
+
+    </style>
+    <title>Bart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.1/angular.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+     <script src="http://getbootstrap.com/dist/js/bootstrap.js"></script>
+     <script>
+               $(document).ready(function () {
+              $('#slide-nav.navbar .container').append($('<div id="navbar-height-col"></div>'));
+
+              // Enter your ids or classes
+              var toggler = '.navbar-toggle';
+              var pagewrapper = '#page-content';
+              var navigationwrapper = '.navbar-header';
+              var menuwidth = '100%'; // the menu inside the slide menu itself
+              var slidewidth = '80%';
+              var menuneg = '-100%';
+              var slideneg = '-80%';
+
+
+              $("#slide-nav").on("click", toggler, function (e) {
+
+                  var selected = $(this).hasClass('slide-active');
+
+                  $('#slidemenu').stop().animate({
+                      left: selected ? menuneg : '0px'
+                  });
+
+                  $('#navbar-height-col').stop().animate({
+                      left: selected ? slideneg : '0px'
+                  });
+
+                  $(pagewrapper).stop().animate({
+                      left: selected ? '0px' : slidewidth
+                  });
+
+                  $(navigationwrapper).stop().animate({
+                      left: selected ? '0px' : slidewidth
+                  });
+
+
+                  $(this).toggleClass('slide-active', !selected);
+                  $('#slidemenu').toggleClass('slide-active');
+
+
+                  $('#page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
+
+
+              });
+
+
+              var selected = '#slidemenu, #page-content, body, .navbar, .navbar-header';
+
+
+              $(window).on("resize", function () {
+
+                  if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
+                      $(selected).removeClass('slide-active');
+                  }
+
+
+              });
+
+
+
+
+          });
+     </script>
+</head>
+
+<body ng-controller="MainCtrl">
+  <br/>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Link</a></li>
+
+        </ul>
+
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+   <select  class="selectpicker" data-width="100%" ng-model="selected" ng-options="x as x.name for x in resultGet.stations.station" ng-init="selected=''" ng-change="getStation(selected.abbr);change(selected.gtfs_latitude,selected.gtfs_longitude);createMarker()" > </select>
+
+      <div  ng-controller = "TabController as tabc">
+             <div class="list-group" ng-hide="!selected" ng-show = "tabc.isSet(1)">
+                     <a class="list-group-item" > <b>Name</b>: {{resultS.stations.station.name}}  </a>
+                     <a class="list-group-item" ><b>Address</b>: {{resultS.stations.station.address}}</a>
+                     <a class="list-group-item" ><b>City</b>: {{resultS.stations.station.city}}</a>
+                     <a class="list-group-item" ><b>State</b>: {{resultS.stations.station.state}}</a>
+                     <a class="list-group-item" ><b>Zipcode</b>: {{resultS.stations.station.zipcode}}</a>
+                     <a class="list-group-item" ><b>Intro</b>: {{resultS.stations.station.intro}}</a>
+                     <a class="list-group-item" ><b>Platform Info</b>: {{resultS.stations.station.platform_info}}</a>
+                    <a class="list-group-item" ><b>Cross Street</b>: {{resultS.stations.station.cross_street}}</a>
+          </div>
+      </div>
+      <div class="img-rounded" id="map">
+
+      </div>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCYvVsJNzHxoApX6dy8BxmKimobNGUjtA"></script>
+  </body>
+</html>
